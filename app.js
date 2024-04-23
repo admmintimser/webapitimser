@@ -12,7 +12,7 @@ import appointmentRouter from "./router/appointmentRouter.js";
 
 const app = express();
 
-app.use(express.static("../frontend/dist"));
+app.use(express.static("./frontend/dist"));
 app.get("*",(req,res) =>{
   res.sendFile(path.resolve(__dirname,"frontend", "dist", "index.html"))
 });
