@@ -18,7 +18,7 @@ const App = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await axios.get("http://localhost:80/api/v1/user/patient/me", {
+                const response = await axios.get("http://localhost:3001/api/v1/user/patient/me", {
                     withCredentials: true,
                 });
                 setIsAuthenticated(true);

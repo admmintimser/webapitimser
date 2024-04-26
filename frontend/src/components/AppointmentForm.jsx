@@ -54,7 +54,7 @@ const AppointmentForm = () => {
     useEffect(() => {
         const fetchDoctors = async () => {
             const { data } = await axios.get(
-                "http://localhost:4000/api/v1/user/doctors",
+                "http://localhost:3001/api/v1/user/doctors",
                 { withCredentials: true }
             );
             setDoctors(data.doctors);
@@ -75,7 +75,7 @@ const AppointmentForm = () => {
         e.preventDefault();
         try {
             const { data } = await axios.post(
-                "http://localhost:4000/api/v1/appointment/post",
+                "http://localhost:3001/api/v1/appointment/post",
                 formData,
                 {
                     withCredentials: true,

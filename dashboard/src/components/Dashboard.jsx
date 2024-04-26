@@ -13,7 +13,7 @@ const Dashboard = () => {
     const fetchAppointments = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/appointment/getall",
+          "http://localhost:3001/api/v1/appointment/getall",
           { withCredentials: true }
         );
         setAppointments(data.appointments);
@@ -27,7 +27,7 @@ const Dashboard = () => {
   const handleUpdateStatus = async (appointmentId, status) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:4000/api/v1/appointment/update/${appointmentId}`,
+        `http://localhost:3001/api/v1/appointment/update/${appointmentId}`,
         { status },
         { withCredentials: true }
       );
@@ -90,7 +90,7 @@ const Dashboard = () => {
                 <th>Procesada</th>
               </tr>
             </thead>
-            <tbody>
+            {/* <tbody>
               {appointments && appointments.length > 0
                 ? appointments.map((appointment) => (
                     <tr key={appointment._id}>
@@ -127,7 +127,7 @@ const Dashboard = () => {
                     </tr>
                   ))
                 : "No Appointments Found!"}
-            </tbody>
+            </tbody> */}
           </table>
 
           {}
