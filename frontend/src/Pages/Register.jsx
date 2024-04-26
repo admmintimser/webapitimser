@@ -21,7 +21,7 @@ const Register = () => {
   e.preventDefault();
   try {
     const response = await axios.post(
-      "http://localhost:3001/api/v1/user/patient/register",
+      "http://localhost:8080/api/v1/user/patient/register",
       { firstName, lastName, email, phone, dob, gender, password },
       {
         withCredentials: true,
