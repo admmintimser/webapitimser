@@ -21,12 +21,10 @@ app.use(cookieParser());
 app.use(cors());
 app.use(helmet());
 
-// Serve Dashboard SPA
-const dashboardPath = path.join(__dirname, '../dashboard/dist');
-app.use('/dashboard', express.static(dashboardPath));
-app.get('/dashboard/*', (req, res) => {
-  res.sendFile(path.join(dashboardPath, 'index.html'));
-});
+// API Routes
+app.use("/api/v1/message", messageRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/appointment", appointmentRouter);
 
 // Serve Frontend SPA
 const frontendPath = path.join(__dirname, '../frontend/dist');
@@ -35,10 +33,14 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
-// API Routes
-app.use("/api/v1/message", messageRouter);
-app.use("/api/v1/user", userRouter);
-app.use("/api/v1/appointment", appointmentRouter);
+// Serve Dashboard SPA
+const dashboardPath = path.join(__dirname, '../dashboard/dist');
+app.use('/dashboard', express.static(dashboardPath));
+app.get('/dashboard/*', (req, res) => {
+  res.sendFile(path.join(dashboardPath, 'index.html'));
+});
+
+
 
 // Error Middleware
 app.use(errorMiddleware);
