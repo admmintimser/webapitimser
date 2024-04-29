@@ -3,6 +3,9 @@ import { catchAsyncErrors } from "./catchAsyncErrors.js";
 import ErrorHandler from "./error.js";
 import jwt from "jsonwebtoken";
 
+// Clave secreta directamente en el código (no recomendado para producción)
+const JWT_SECRET_KEY = "tu_clave_secreta_aqui";
+
 // Middleware to authenticate dashboard users
 export const isAdminAuthenticated = catchAsyncErrors(
   async (req, res, next) => {
@@ -12,7 +15,7 @@ export const isAdminAuthenticated = catchAsyncErrors(
         new ErrorHandler("Dashboard User is not authenticated!", 400)
       );
     }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const decoded = jwt.verify(token, JWT_SECRET_KEY);
     req.user = await User.findById(decoded.id);
     if (req.user.role !== "Admin") {
       return next(
@@ -30,7 +33,7 @@ export const isPatientAuthenticated = catchAsyncErrors(
     if (!token) {
       return next(new ErrorHandler("User is not authenticated!", 400));
     }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const decoded = jwt.verify(token, JWT_SECRET_KEY);
     req.user = await User.findById(decoded.id);
     if (req.user.role !== "Patient") {
       return next(
