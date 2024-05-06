@@ -127,12 +127,10 @@ const appointmentSchema = new mongoose.Schema({
     },
     lastMenstruationDate: {
         type: Date,
-        required: true,
         enum: ['Recientemente', 'Ya no la tengo (menopausia)', 'Prefiero no contestar'],
     },
     firstMenstruationAge: {
         type: Number,
-        required: true,
     },
     sexualRelations: {
         type: String,
@@ -140,7 +138,6 @@ const appointmentSchema = new mongoose.Schema({
     },
     firstSexualRelationAge: {
         type: Number,
-        required: true,
     },
     sexualPartners: {
         type: String,
