@@ -12,10 +12,31 @@ import appointmentRouter from "./router/appointmentRouter.js";
 
 const app = express();
 
+// Allowed origins list
+const allowedOrigins = [
+    'https://cuestionariopreventix.azurewebsites.net',
+    'https://dashboardtimser.azurewebsites.net'
+];
+
+// Flexible CORS configuration
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);  // Allow requests with no origin (like mobile apps or curl requests)
+        
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.warn(`Blocked CORS request from disallowed origin: ${origin}`);
+            callback(new Error('Not allowed by CORS'), false);
+        }
+    },
+    credentials: true  // Allow credentials (cookies, authorization headers, etc.)
+};
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors(corsOptions));  // Use the flexible CORS configuration
 app.use(helmet());
 
 // API Routes
@@ -29,7 +50,7 @@ app.use(errorMiddleware);
 // Connect to Database
 connectToDB();
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
