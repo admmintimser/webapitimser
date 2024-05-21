@@ -127,8 +127,7 @@ const appointmentSchema = new mongoose.Schema({
         enum: ['Por razones clínicas distintas al cáncer', 'Porque tenía cáncer de ovario', 'Porque tenía cáncer de endometrio', 'Porque tenía cáncer cervicouterino', 'Por otras razones', 'No recuerdo'],
     },
     lastMenstruationDate: {
-        type: Date,
-        required: true,
+        type: String,
         enum: ['Recientemente', 'Ya no la tengo (menopausia)', 'Prefiero no contestar'],
     },
     firstMenstruationAge: {
@@ -141,7 +140,6 @@ const appointmentSchema = new mongoose.Schema({
     },
     firstSexualRelationAge: {
         type: Number,
-        required: true,
     },
     sexualPartners: {
         type: String,
