@@ -15,7 +15,8 @@ const app = express();
 // Allowed origins list
 const allowedOrigins = [
     'https://cuestionariopreventix.azurewebsites.net',
-    'https://dashboardtimser.azurewebsites.net'
+    'https://dashboardtimser.azurewebsites.net',
+    'https://dashboardmhs.azurewebsites.net'
 ];
 
 // Flexible CORS configuration
