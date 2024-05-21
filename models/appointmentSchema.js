@@ -49,6 +49,9 @@ const appointmentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    sampleLocationValue: {
+        type: Number,
+    },
     email: {
         type: String,
         required: true,
