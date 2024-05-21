@@ -172,6 +172,9 @@ const appointmentSchema = new mongoose.Schema({
     FolioDevelab: {
         type: String
     },
+    ClienteDevelab: {
+        type: String
+    },
     fechaToma: {
         type: Date
     },

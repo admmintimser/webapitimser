@@ -9,9 +9,9 @@ export const generateToken = (user, message, statusCode, res) => {
       expiresIn: new Date(
         Date.now() + process.env.JWT_EXPIRES * 24 * 60 * 60 * 1000
       ),
-    httpOnly: true,  // La cookie sólo es accesible por el servidor web
-    secure: true,   // La cookie sólo se envía sobre HTTPS
-    sameSite: 'none' // Esta opción puede ser necesaria dependiendo de tu configuración de CORS
+        httpOnly: true,  
+        secure: true,   
+        sameSite: 'none', 
     })
     .json({
       success: true,
