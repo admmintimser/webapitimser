@@ -44,6 +44,7 @@ app.use(helmet());
 app.use("/api/v1/message", messageRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/appointment", appointmentRouter);
+app.use('/api/v1', dashboardRoutes);
 
 // Error Middleware
 app.use(errorMiddleware);
