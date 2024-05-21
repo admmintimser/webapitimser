@@ -170,10 +170,10 @@ const appointmentSchema = new mongoose.Schema({
         type: Number
     },
     FolioDevelab: {
-        type: String
+        type: Number
     },
     ClienteDevelab: {
-        type: String
+        type: Number
     },
     fechaToma: {
         type: Date
