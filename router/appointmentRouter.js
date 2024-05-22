@@ -11,7 +11,9 @@ import {isAdminAuthenticated, isPatientAuthenticated} from "../middlewares/auth.
 
 const router = express.Router();
 
-router.post("/post", isPatientAuthenticated, postAppointment);
+// Cambiar esta línea para eliminar la autenticación del paciente
+router.post("/post", postAppointment); 
+
 router.get("/getall", isAdminAuthenticated, getAllAppointments);
 router.put("/update/:id", isAdminAuthenticated, updateAppointmentStatus);
 router.delete("/delete/:id", isAdminAuthenticated, deleteAppointment);
