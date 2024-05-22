@@ -3,7 +3,6 @@ import ErrorHandler from "../middlewares/error.js";
 import { Appointment } from "../models/appointmentSchema.js";
 import { User } from "../models/userSchema.js";
 
-
 export const getAllAppointments = catchAsyncErrors(async (req, res, next) => {
     const appointments = await Appointment.find();
     res.status(200).json({ success: true, appointments });
@@ -42,120 +41,74 @@ export const countAppointmentsNotProcessed = catchAsyncErrors(async (req, res, n
     const notProcessedCount = await Appointment.countDocuments({ tomaProcesada: false });
     res.status(200).json({ success: true, count: notProcessedCount });
 });
+
 export const postAppointment = catchAsyncErrors(async (req, res, next) => {
     const {
         privacyConsent,
         informedConsent,
-        fastingHours,
-        lastMealTime,
-        lastMealType,
         patientFirstName,
         patientLastName,
         birthDate,
         areaType,
         educationLevel,
         sampleLocation,
-        sampleLocationValue,
         email,
         confirmEmail,
         mobilePhone,
         weight,
         height,
-        hpvVaccinationStatus,
-        medicalConditions,
-        smokingStatus,
-        weeklyTobaccoConsumption,
-        papSmearTestStatus,
-        papSmearTestYear,
-        lastPapSmearTestYear,
-        papSmearTestResult,
-        lastPapSmearTestResult,
-        papSmearFrequency,
-        reasonForNoPapSmear,
-        colposcopyStatus,
-        lastColposcopyYear,
+        lastMealTime,
+        lastMealType,
+        docF,
+        docName,
+        vphVaccination,
+        detectedConditions,
+        tobaccoConsumption,
+        cigarettesPerWeekBefore,
+        cigarettesPerWeekCurrent,
+        papanicolaouTest,
+        papanicolaouYear,
+        papanicolaouResult,
+        colposcopy,
         colposcopyYear,
         colposcopyResult,
-        lastColposcopyResult,
-        hysterectomyStatus,
+        hysterectomy,
         hysterectomyReason,
         lastMenstruationDate,
         firstMenstruationAge,
-        sexualActivityStatus,
+        sexualRelations,
         firstSexualRelationAge,
-        sexualPartnerCount,
+        sexualPartners,
         currentContraceptiveMethod,
-        oralContraceptiveDuration,
-        pregnancyStatus,
-        childbirthCount,
-        cesareanCount,
-        abortionStatus,
+        oralContraceptiveUsageDuration,
+        pregnancies,
+        naturalBirths,
+        cesareans,
+        abortions,
         abortionCount
     } = req.body;
 
-    // Validación de datos
+    // Validación de datos básicos
     if (!privacyConsent || !informedConsent || !email || !confirmEmail || email !== confirmEmail) {
-        return next(
-            new ErrorHandler("Por favor, complete todos los campos obligatorios.", 400)
-        );
+        return next(new ErrorHandler("Por favor, complete todos los campos obligatorios.", 400));
     }
 
-    // Crea un objeto appointment con los datos recibidos en req.body
-    const appointmentData = {
-        privacyConsent,
-        informedConsent,
-        fastingHours,
-        lastMealTime,
-        lastMealType,
-        patientFirstName,
-        patientLastName,
-        birthDate,
-        areaType,
-        educationLevel,
-        sampleLocation,
-        sampleLocationValue,
-        email,
-        confirmEmail,
-        mobilePhone,
-        weight,
-        height,
-        hpvVaccinationStatus,
-        medicalConditions,
-        smokingStatus,
-        weeklyTobaccoConsumption,
-        papSmearTestStatus,
-        papSmearTestYear,
-        lastPapSmearTestYear,
-        papSmearTestResult,
-        lastPapSmearTestResult,
-        papSmearFrequency,
-        reasonForNoPapSmear,
-        colposcopyStatus,
-        lastColposcopyYear,
-        colposcopyYear,
-        colposcopyResult,
-        lastColposcopyResult,
-        hysterectomyStatus,
-        hysterectomyReason,
-        lastMenstruationDate,
-        firstMenstruationAge,
-        sexualActivityStatus,
-        firstSexualRelationAge,
-        sexualPartnerCount,
-        currentContraceptiveMethod,
-        oralContraceptiveDuration,
-        pregnancyStatus,
-        childbirthCount,
-        cesareanCount,
-        abortionStatus,
-        abortionCount,
-        // Remover el ID del paciente ya que no es necesario sin autenticación
-    };
-
     // Crear una nueva cita
-    const appointment = await Appointment.create(appointmentData);
+    const appointment = await Appointment.create(req.body);
 
-    res
-        .status(201)
-        .json({success: true, message: "¡Cita creada con éxito!", appointment});
+    res.status(201).json({ success: true, message: "¡Cita creada con éxito!", appointment });
+});
+
+export const updateAppointment = catchAsyncErrors(async (req, res, next) => {
+    const { id } = req.params;
+    let appointment = await Appointment.findById(id);
+    if (!appointment) {
+        return next(new ErrorHandler("Appointment not found!", 404));
+    }
+    appointment = await Appointment.findByIdAndUpdate(id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    });
+    res.status(200).json({ success: true, message: "Appointment updated!", appointment });
 });
