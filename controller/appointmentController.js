@@ -3,6 +3,14 @@ import ErrorHandler from "../middlewares/error.js";
 import { Appointment } from "../models/appointmentSchema.js";
 import { User } from "../models/userSchema.js";
 
+export const countAppointmentsNotProcessed = catchAsyncErrors(async (req, res, next) => {
+    const notProcessedCount = await Appointment.countDocuments({ tomaProcesada: false });
+    res.status(200).json({ success: true, count: notProcessedCount });
+});
+export const countAppointmentsProcessed = catchAsyncErrors(async (req, res, next) => {
+    const ProcessedCount = await Appointment.countDocuments({ tomaProcesada: true });
+    res.status(200).json({ success: true, count: ProcessedCount });
+});
 export const postAppointment = catchAsyncErrors(async (req, res, next) => {
     const {
         privacyConsent,
