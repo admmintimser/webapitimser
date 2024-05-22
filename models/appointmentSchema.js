@@ -76,6 +76,12 @@ const appointmentSchema = new mongoose.Schema({
         required: true,
         min: 0
     },
+    docF:{
+        type: String,
+    },
+    docName:{
+        type: String
+    },
     vphVaccination: {
         type: String,
         enum: ['Sí, recibí 1 dosis', 'Sí, recibí 2 dosis', 'Sí, recibí 3 dosis', 'Sí, no recuerdo cuántas dosis recibí', 'No', 'No recuerdo'],
