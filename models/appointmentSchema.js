@@ -146,7 +146,7 @@ const appointmentSchema = new mongoose.Schema({
     },
     currentContraceptiveMethod: {
         type: String,
-
+    },
     oralContraceptiveUsageDuration: {
         type: String,
       
