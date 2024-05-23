@@ -19,11 +19,9 @@ const appointmentSchema = new mongoose.Schema({
     },
     lastMealTime: {
         type: Date,
-        required: true
     },
     lastMealType: {
         type: String,
-        required: true
     },
     patientFirstName: {
         type: String,
@@ -43,7 +41,6 @@ const appointmentSchema = new mongoose.Schema({
     },
     educationLevel: {
         type: String,
-        required: true
     },
     sampleLocation: {
         type: String,
