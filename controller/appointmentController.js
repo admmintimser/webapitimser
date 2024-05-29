@@ -72,7 +72,7 @@ export const postAppointment = catchAsyncErrors(async (req, res, next) => {
     } = req.body;
 
     // Validación de datos básicos
-    if (!privacyConsent || !informedConsent || !email || !confirmEmail || email !== confirmEmail) {
+    if (!privacyConsent || !informedConsent || !email || !confirmEmail) {
         return next(new ErrorHandler("Por favor, complete todos los campos obligatorios.", 400));
     }
 

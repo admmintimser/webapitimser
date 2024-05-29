@@ -16,6 +16,7 @@ const app = express();
 // Allowed origins list
 const allowedOrigins = [
     'https://cuestionariopreventix.azurewebsites.net',
+    'https://cuestionariopreventixmhs.azurewebsites.net',
     'https://dashboardtimser.azurewebsites.net',
     'https://dashboardmhs.azurewebsites.net'
 ];
