@@ -37,14 +37,12 @@ const appointmentSchema = new mongoose.Schema({
     },
     areaType: {
         type: String,
-        required: true
     },
     educationLevel: {
         type: String,
     },
     sampleLocation: {
         type: String,
-        required: true
     },
     sampleLocationValue: {
         type: Number,
@@ -65,12 +63,10 @@ const appointmentSchema = new mongoose.Schema({
     },
     weight: {
         type: Number,
-        required: true,
         min: 0
     },
     height: {
         type: Number,
-        required: true,
         min: 0
     },
     docF:{
@@ -131,7 +127,6 @@ const appointmentSchema = new mongoose.Schema({
     },
     firstMenstruationAge: {
         type: Number,
-        required: true,
     },
     sexualRelations: {
         type: String,
