@@ -221,6 +221,6 @@ const appointmentSchema = new mongoose.Schema({
     flebotomista: {
         type: String
     }
-});
+}, { timestamps: true }); // Añadido timestamps
 
 export const Appointment = mongoose.model("Appointment", appointmentSchema);

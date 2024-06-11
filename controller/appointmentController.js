@@ -1,7 +1,7 @@
 import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/error.js";
 import { Appointment } from "../models/appointmentSchema.js";
-import { User } from "../models/userSchema.js";
+import moment from 'moment';
 
 export const getAllAppointments = catchAsyncErrors(async (req, res, next) => {
     const appointments = await Appointment.find();
@@ -42,6 +42,30 @@ export const countAppointmentsNotProcessed = catchAsyncErrors(async (req, res, n
     res.status(200).json({ success: true, count: notProcessedCount });
 });
 
+export const countAppointmentsToday = catchAsyncErrors(async (req, res, next) => {
+    const today = moment().startOf('day');
+    const count = await Appointment.countDocuments({
+        createdAt: {
+            $gte: today.toDate(),
+            $lt: moment(today).endOf('day').toDate()
+        }
+    });
+    res.status(200).json({ success: true, count });
+});
+
+export const countProcessedAppointmentsToday = catchAsyncErrors(async (req, res, next) => {
+    const today = moment().startOf('day');
+    const count = await Appointment.countDocuments({
+        createdAt: {
+            $gte: today.toDate(),
+            $lt: moment(today).endOf('day').toDate()
+        },
+        tomaProcesada: true
+    });
+    res.status(200).json({ success: true, count });
+});
+
+
 export const postAppointment = catchAsyncErrors(async (req, res, next) => {
     const {
         privacyConsent,
@@ -71,27 +95,11 @@ export const postAppointment = catchAsyncErrors(async (req, res, next) => {
         sexualRelations,
     } = req.body;
 
-    // Validación de datos básicos
     if (!privacyConsent || !informedConsent || !email || !confirmEmail) {
         return next(new ErrorHandler("Por favor, complete todos los campos obligatorios.", 400));
     }
 
-    // Crear una nueva cita
     const appointment = await Appointment.create(req.body);
 
     res.status(201).json({ success: true, message: "¡Cita creada con éxito!", appointment });
-});
-
-export const updateAppointment = catchAsyncErrors(async (req, res, next) => {
-    const { id } = req.params;
-    let appointment = await Appointment.findById(id);
-    if (!appointment) {
-        return next(new ErrorHandler("Appointment not found!", 404));
-    }
-    appointment = await Appointment.findByIdAndUpdate(id, req.body, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false
-    });
-    res.status(200).json({ success: true, message: "Appointment updated!", appointment });
 });
