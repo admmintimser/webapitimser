@@ -13,9 +13,7 @@ const appointmentSchema = new mongoose.Schema({
         default: false,
     },
     fastingHours: {
-        type: Number,
-        required: true,
-        min: 0
+        type: String,
     },
     lastMealTime: {
         type: Date,
