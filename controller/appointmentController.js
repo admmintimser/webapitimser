@@ -1,3 +1,4 @@
+// appointmentController.js
 import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/error.js";
 import { Appointment } from "../models/appointmentSchema.js";
@@ -5,6 +6,18 @@ import moment from 'moment';
 
 export const getAllAppointments = catchAsyncErrors(async (req, res, next) => {
     const appointments = await Appointment.find();
+    res.status(200).json({ success: true, appointments });
+});
+
+// New function to get all today's appointments
+export const getAllAppointmentsToday = catchAsyncErrors(async (req, res, next) => {
+    const today = moment().startOf('day');
+    const appointments = await Appointment.find({
+        createdAt: {
+            $gte: today.toDate(),
+            $lt: moment(today).endOf('day').toDate()
+        }
+    });
     res.status(200).json({ success: true, appointments });
 });
 
@@ -64,7 +77,6 @@ export const countProcessedAppointmentsToday = catchAsyncErrors(async (req, res,
     });
     res.status(200).json({ success: true, count });
 });
-
 
 export const postAppointment = catchAsyncErrors(async (req, res, next) => {
     const {
