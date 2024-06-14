@@ -16,7 +16,7 @@ const appointmentSchema = new mongoose.Schema({
         type: String,
     },
     lastMealTime: {
-        type: Date,
+        type: String,
     },
     lastMealType: {
         type: String,
