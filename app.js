@@ -18,7 +18,9 @@ const allowedOrigins = [
     'https://cuestionariopreventix.azurewebsites.net',
     'https://cuestionariopreventixmhs.azurewebsites.net',
     'https://dashboardtimser.azurewebsites.net',
-    'https://dashboardmhs.azurewebsites.net'
+    'https://dashboardmhs.azurewebsites.net',
+    'https://usanapreventix.azurewebsites.net',
+    'https://preventix.azurewebsites.net'
 ];
 
 // Flexible CORS configuration
