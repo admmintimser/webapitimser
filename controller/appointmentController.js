@@ -1,4 +1,3 @@
-// appointmentController.js
 import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/error.js";
 import { Appointment } from "../models/appointmentSchema.js";
@@ -9,7 +8,7 @@ export const getAllAppointments = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({ success: true, appointments });
 });
 
-// New function to get all today's appointments
+// Función para obtener todas las citas de hoy
 export const getAllAppointmentsToday = catchAsyncErrors(async (req, res, next) => {
     const today = moment().startOf('day');
     const appointments = await Appointment.find({
@@ -114,4 +113,13 @@ export const postAppointment = catchAsyncErrors(async (req, res, next) => {
     const appointment = await Appointment.create(req.body);
 
     res.status(201).json({ success: true, message: "¡Cita creada con éxito!", appointment });
+});
+
+// Nueva función para obtener los detalles de una cita por ID
+export const getAppointmentById = catchAsyncErrors(async (req, res, next) => {
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) {
+        return next(new ErrorHandler("Appointment not found", 404));
+    }
+    res.status(200).json({ success: true, appointment });
 });

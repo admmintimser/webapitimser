@@ -36,10 +36,11 @@ export const patientRegister = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const login = catchAsyncErrors(async (req, res, next) => {
-    const {email, password, role} = req.body;
-    if (!email || !password || !role) {
+    const {email, password} = req.body;
+    if (!email || !password) {
         return next(new ErrorHandler("Please Fill Full Form!", 400));
     }
+    
     const user = await User
         .findOne({email})
         .select("+password");
@@ -51,9 +52,7 @@ export const login = catchAsyncErrors(async (req, res, next) => {
     if (!isPasswordMatch) {
         return next(new ErrorHandler("Invalid Email Or Password!", 400));
     }
-    if (role !== user.role) {
-        return next(new ErrorHandler(`User Not Found With This Role!`, 400));
-    }
+
     generateToken(user, "Login Successfully!", 201, res);
 });
 

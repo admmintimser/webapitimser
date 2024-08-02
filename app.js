@@ -1,15 +1,20 @@
 import express from "express";
-import { connectToDB } from "./database/dbConnection.js";
+import {connectToDB} from "./database/dbConnection.js";
 import dotenv from "dotenv";
 dotenv.config();
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from 'helmet';
-import { errorMiddleware } from "./middlewares/error.js";
+import {errorMiddleware} from "./middlewares/error.js";
 import messageRouter from "./router/messageRouter.js";
 import userRouter from "./router/userRouter.js";
 import appointmentRouter from "./router/appointmentRouter.js";
-import dashboardRoutes from './router/dashboardRoutes.js';
+import dashboardClientesRouter from './router/dashboardClientesRouter.js';
+import preventixRouter from './router/preventixRouter.js';
+import clienteRouter from './router/clienteRouter.js';
+import cuestionarioRouter from './router/cuestionarioRouter.js';
+import path from 'path';
+import {fileURLToPath} from 'url';
 
 const app = express();
 
@@ -44,11 +49,13 @@ app.use(cookieParser());
 app.use(cors(corsOptions));  // Use the flexible CORS configuration
 app.use(helmet());
 
-// API Routes
 app.use("/api/v1/message", messageRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/appointment", appointmentRouter);
-app.use('/api/v1', dashboardRoutes);
+app.use('/api/v1', dashboardClientesRouter);
+app.use("/api/v1/preventix", preventixRouter);  
+app.use("/api/v1/cliente", clienteRouter);  
+app.use("/api/v1/cuestionario", cuestionarioRouter);
 
 // Error Middleware
 app.use(errorMiddleware);

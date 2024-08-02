@@ -4,49 +4,57 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: [true, "Nombre necesario!"],
-    minLength: [3, "Nombre debe de contener al menos 3 caracteres."],
-  },
-  lastName: {
-    type: String,
-    required: [true, "Apellido Necesario!"],
-    minLength: [3, "Apellido debe de contener al menos 3 caracteres!"],
-  },
-  email: {
-    type: String,
-    required: [true, "Correo necesario!"],
-    validate: [validator.isEmail, "Ingresa un correo correcto!"],
-  },
-  phone: {
-    type: String,
-    required: [true, "Número necesario!"],
-    minLength: [10, "El teléfono debe de contener al menos 10 digitos!"],
-  },
-  dob: {
-    type: Date,
-    required: [true, "Fecha de nacimiento necesaria."],
-  },
-  gender: {
-    type: String,
-    required: [true, "Genéro es necesario!"],
-    enum: ["Masculino", "Femenino"],
-  },
-  password: {
-    type: String,
-    required: [true, "Contraseña necesaria!"],
-    minLength: [8, "La contraseña debe de tener al menos 8 caracteres!"],
-    select: false,
-  },
-  role: {
-    type: String,
-    required: [true, "Role Required!"],
-    enum: ["Patient", "Doctor", "Admin", "Lab", "Flebo"],
-  },
-  doctorDepartment:{
-    type: String,
-  },
+    firstName: {
+        type: String,
+        required: [
+            true, "Nombre necesario!"
+        ],
+        minLength: [3, "Nombre debe de contener al menos 3 caracteres."]
+    },
+    lastName: {
+        type: String,
+        required: [
+            true, "Apellido Necesario!"
+        ],
+        minLength: [3, "Apellido debe de contener al menos 3 caracteres!"]
+    },
+    email: {
+        type: String,
+        required: [
+            true, "Correo necesario!"
+        ],
+        validate: [validator.isEmail, "Ingresa un correo correcto!"]
+    },
+    phone: {
+        type: String,
+        minLength: [10, "El teléfono debe de contener al menos 10 digitos!"]
+    },
+    dob: {
+        type: Date
+    },
+    nic: {
+        type: String
+    },
+    gender: {
+        type: String,
+    },
+    password: {
+        type: String,
+        required: [
+            true, "Contraseña necesaria!"
+        ],
+        minLength: [
+            8, "La contraseña debe de tener al menos 8 caracteres!"
+        ],
+        select: false
+    },
+    role: {
+        type: String,
+        required: [
+            true, "Role Required!"
+        ],
+        enum: ["Patient", "Doctor", "Admin", "Lab", "Flebo"]
+    }
 });
 
 userSchema.pre("save", async function (next) {
