@@ -1,11 +1,11 @@
 import express from "express";
-import {connectToDB} from "./database/dbConnection.js";
+import { connectToDB } from "./database/dbConnection.js";
 import dotenv from "dotenv";
 dotenv.config();
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from 'helmet';
-import {errorMiddleware} from "./middlewares/error.js";
+import { errorMiddleware } from "./middlewares/error.js";
 import messageRouter from "./router/messageRouter.js";
 import userRouter from "./router/userRouter.js";
 import appointmentRouter from "./router/appointmentRouter.js";
@@ -13,8 +13,6 @@ import dashboardClientesRouter from './router/dashboardClientesRouter.js';
 import preventixRouter from './router/preventixRouter.js';
 import clienteRouter from './router/clienteRouter.js';
 import cuestionarioRouter from './router/cuestionarioRouter.js';
-import path from 'path';
-import {fileURLToPath} from 'url';
 
 const app = express();
 
