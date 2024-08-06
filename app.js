@@ -38,7 +38,8 @@ const corsOptions = {
             callback(new Error('Not allowed by CORS'), false);
         }
     },
-    credentials: true  // Allow credentials (cookies, authorization headers, etc.)
+    credentials: true , // Allow credentials (cookies, authorization headers, etc.)
+    optionsSuccessStatus: 200
 };
 
 app.use(express.urlencoded({ extended: false }));
