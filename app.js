@@ -24,7 +24,7 @@ const allowedOrigins = [
     'https://dashboardmhs.azurewebsites.net',
     'https://usanapreventix.azurewebsites.net',
     'https://preventix.azurewebsites.net',
-    'https://preventixprevita.azurewebsites.net'
+    'https://previtabypreventix.azurewebsites.net'
 ];
 
 // Flexible CORS configuration
