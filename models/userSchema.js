@@ -53,7 +53,6 @@ const userSchema = new mongoose.Schema({
         required: [
             true, "Role Required!"
         ],
-        enum: ["Patient", "Doctor", "Admin", "Lab", "Flebo", "AdminLab", "Westernblot", "Elisas", "Direccion", "Comercial", "Cliente", "Receptionist"]
     }
 });
 
