@@ -12,12 +12,12 @@ import { hasRoles } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/post", hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), postPreventix);
-router.get("/getall", hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), getAllPreventix);
-router.put("/update/:id", hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), updatePreventixStatus);
-router.delete("/delete/:id", hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), deletePreventix);
+router.post("/post", hasRoles('Admin','AdminLab', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), postPreventix);
+router.get("/getall", hasRoles('Admin','AdminLab', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), getAllPreventix);
+router.put("/update/:id", hasRoles('Admin','AdminLab', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), updatePreventixStatus);
+router.delete("/delete/:id", hasRoles('Admin','AdminLab', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), deletePreventix);
 router.get('/count/processed', countPreventixProcessed);
 router.get('/count/not-processed', countPreventixNotProcessed);
-router.get('/getall/today', hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), getAllPreventixToday);
+router.get('/getall/today', hasRoles('Admin','AdminLab', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), getAllPreventixToday);
 
 export default router;
