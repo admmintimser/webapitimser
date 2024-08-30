@@ -7,16 +7,15 @@ import {
     deleteCuestionario,
     bulkUploadCuestionarios
 } from "../controller/cuestionarioController.js";
-import { isAdminAuthenticated } from "../middlewares/auth.js";
+import { hasRoles } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/create", isAdminAuthenticated, createCuestionario);
-// Remover autenticación de administrador para getAllCuestionarios
-router.get("/getall", getAllCuestionarios);
-router.get("/:id", getCuestionarioById);
-router.put("/update/:id", isAdminAuthenticated, updateCuestionario);
-router.delete("/delete/:id", isAdminAuthenticated, deleteCuestionario);
-router.post("/bulk-upload", isAdminAuthenticated, bulkUploadCuestionarios);
+router.post("/create", hasRoles('Admin'), createCuestionario); // Solo Admin puede crear cuestionarios
+router.get("/getall", getAllCuestionarios); // Acceso sin seguridad
+router.get("/:id", getCuestionarioById); // Acceso sin seguridad
+router.put("/update/:id", hasRoles('Admin'), updateCuestionario); // Solo Admin puede actualizar
+router.delete("/delete/:id", hasRoles('Admin'), deleteCuestionario); // Solo Admin puede borrar
+router.post("/bulk-upload", hasRoles('Admin'), bulkUploadCuestionarios); // Solo Admin puede hacer bulk upload
 
 export default router;

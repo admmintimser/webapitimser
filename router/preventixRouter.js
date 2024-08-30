@@ -8,16 +8,16 @@ import {
     countPreventixNotProcessed,
     getAllPreventixToday
 } from "../controller/preventixController.js";
-import { isAdminAuthenticated, isReceptionistOrAdminAuthenticated } from "../middlewares/auth.js";
+import { hasRoles } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/post", isReceptionistOrAdminAuthenticated, postPreventix);
-router.get("/getall", isAdminAuthenticated, getAllPreventix);
-router.put("/update/:id", isAdminAuthenticated, updatePreventixStatus);
-router.delete("/delete/:id", isAdminAuthenticated, deletePreventix);
-router.get('/count/processed', countPreventixProcessed);
-router.get('/count/not-processed', countPreventixNotProcessed);
-router.get('/getall/today', isAdminAuthenticated, getAllPreventixToday);
+router.post("/post", hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), postPreventix); // Receptionist y Admin pueden crear
+router.get("/getall", hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), getAllPreventix); // Admin, Receptionist, Doctor, Elisas pueden obtener todos
+router.put("/update/:id", hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), updatePreventixStatus); // Admin y Receptionist pueden actualizar
+router.delete("/delete/:id", hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), deletePreventix); // Solo Admin puede borrar
+router.get('/count/processed', hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), countPreventixProcessed); // Admin y Receptionist pueden contar procesados
+router.get('/count/not-processed', hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), countPreventixNotProcessed); // Admin y Receptionist pueden contar no procesados
+router.get('/getall/today', hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), getAllPreventixToday); // Admin y Receptionist pueden obtener todos de hoy
 
 export default router;

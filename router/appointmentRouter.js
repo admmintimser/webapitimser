@@ -2,7 +2,7 @@ import express from "express";
 import {
     deleteAppointment,
     getAllAppointments,
-    getAppointmentById, // Importa la función para obtener los detalles de una cita
+    getAppointmentById,
     postAppointment,
     updateAppointmentStatus,
     countAppointmentsProcessed,
@@ -11,26 +11,24 @@ import {
     countProcessedAppointmentsToday,
     getAllAppointmentsToday
 } from "../controller/appointmentController.js";
-import {isAdminAuthenticated, isPatientAuthenticated} from "../middlewares/auth.js";
+import { hasRoles } from "../middlewares/auth.js";
 
 const router = express.Router();
 
 // Rutas existentes
-router.post("/post", postAppointment);
-router.get("/getall", isAdminAuthenticated, getAllAppointments);
-router.put("/update/:id", isAdminAuthenticated, updateAppointmentStatus);
-router.delete("/delete/:id", isAdminAuthenticated, deleteAppointment);
-router.get('/count/processed', countAppointmentsProcessed);
-router.get('/count/not-processed', countAppointmentsNotProcessed);
-router.get('/count/today', countAppointmentsToday);
-router.get('/count/today-processed', countProcessedAppointmentsToday);
+router.post("/post", postAppointment); // Cualquier usuario autenticado puede crear una cita
+router.get("/getall", hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), getAllAppointments); // Verificación de roles específicos
+router.put("/update/:id", hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), updateAppointmentStatus); // Verificación de roles específicos
+router.delete("/delete/:id", hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), deleteAppointment); // Verificación de roles específicos
+router.get('/count/processed', hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), countAppointmentsProcessed); // Verificación de roles específicos
+router.get('/count/not-processed', hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), countAppointmentsNotProcessed); // Verificación de roles específicos
+router.get('/count/today', hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), countAppointmentsToday); // Verificación de roles específicos
+router.get('/count/today-processed', hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), countProcessedAppointmentsToday); // Verificación de roles específicos
 
 // Nueva ruta para obtener todas las citas de hoy
-router.get('/getall/today', isAdminAuthenticated, getAllAppointmentsToday);
+router.get('/getall/today', hasRoles('Admin', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), getAllAppointmentsToday); // Verificación de roles específicos
 
 // Nueva ruta para obtener los detalles de una cita por ID
-// appointmentRouter.js
-router.get('/appointment/:id', getAppointmentById); // Temporalmente sin autenticación para depuración
-
+router.get('/appointment/:id', getAppointmentById); // Cualquier usuario autenticado puede ver detalles
 
 export default router;

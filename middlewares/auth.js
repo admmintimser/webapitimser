@@ -71,3 +71,48 @@ export const isAuthorized = (...roles) => {
     next();
   };
 };
+
+
+// Middleware para autenticar usuarios de cualquier tipo
+export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
+  const token = req.cookies.adminToken || req.cookies.patientToken || req.cookies.receptionToken;
+  if (!token) {
+      return next(new ErrorHandler("User is not authenticated!", 401));
+  }
+
+  try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      req.user = await User.findById(decoded.id);
+
+      if (!req.user) {
+          return next(new ErrorHandler("User not found!", 404));
+      }
+
+      next();
+  } catch (error) {
+      return next(new ErrorHandler("Invalid Token!", 401));
+  }
+});
+
+// Middleware para verificar si el usuario tiene uno de los roles permitidos
+export const hasRoles = (...allowedRoles) => {
+  return catchAsyncErrors(async (req, res, next) => {
+      const token = req.cookies.adminToken || req.cookies.patientToken || req.cookies.receptionToken;
+      if (!token) {
+          return next(new ErrorHandler("User is not authenticated!", 401));
+      }
+
+      try {
+          const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+          req.user = await User.findById(decoded.id);
+
+          if (!req.user || !allowedRoles.includes(req.user.role)) {
+              return next(new ErrorHandler("Not authorized for this resource!", 403));
+          }
+
+          next();
+      } catch (error) {
+          return next(new ErrorHandler("Invalid Token!", 401));
+      }
+  });
+};
