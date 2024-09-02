@@ -34,10 +34,10 @@ router.post("/westernblot/addnew", hasRoles('Admin'), addNewWesternblot);
 router.post("/direccion/addnew", hasRoles('Admin'), addNewDireccion);
 router.post("/comercial/addnew", hasRoles('Admin'), addNewComercial);
 router.post("/cliente/addnew", hasRoles('Admin'), addNewCliente);
-router.get("/doctors", hasRoles('Admin', 'Doctor', 'recepcionista'), getAllDoctors);
-router.get("/admin/me", hasRoles('Admin', 'AdminLab', 'recepcionista', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), getUserDetails);
-router.get("/admin/logout", hasRoles('Admin', 'AdminLab', 'recepcionista', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), logoutAdmin);
-router.get('/count/patients', hasRoles('Admin', 'AdminLab', 'recepcionista', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), countPatients);
+router.get("/doctors", hasRoles('Admin', 'Doctor', 'Receptionist'), getAllDoctors);
+router.get("/admin/me", hasRoles('Admin', 'AdminLab', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), getUserDetails);
+router.get("/admin/logout", hasRoles('Admin', 'AdminLab', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), logoutAdmin);
+router.get('/count/patients', hasRoles('Admin', 'AdminLab', 'Receptionist', 'Doctor', 'Patient', 'Elisas', 'Westernblot', 'Direccion', 'Comercial', 'Cliente'), countPatients);
 
 // Añadir la ruta para obtener los detalles del usuario actual
 router.get("/me", isAuthenticated, getCurrentUserDetails);
