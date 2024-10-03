@@ -57,11 +57,10 @@ export const countPreventixNotProcessed = catchAsyncErrors(async (req, res, next
 export const postPreventix = catchAsyncErrors(async (req, res, next) => {
     const {
         appointmentId,
-        tiempoInicioProceso,
-        estatusMuestra
+        tiempoInicioProceso
     } = req.body;
 
-    if (!appointmentId || !tiempoInicioProceso || !estatusMuestra) {
+    if (!appointmentId || !tiempoInicioProceso ) {
         return next(new ErrorHandler("Por favor, complete todos los campos obligatorios.", 400));
     }
 
