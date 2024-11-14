@@ -64,6 +64,12 @@ export const postPreventix = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Por favor, complete todos los campos obligatorios.", 400));
     }
 
+    // Verificar si ya existe un Preventix con el mismo appointmentId
+    const existingPreventix = await Preventix.findOne({ appointmentId });
+    if (existingPreventix) {
+        return next(new ErrorHandler("Ya existe un registro de Preventix para este Folio.", 400));
+    }
+
     const preventix = await Preventix.create(req.body);
 
     res.status(201).json({ success: true, message: "¡Registro de Preventix creado con éxito!", preventix });
