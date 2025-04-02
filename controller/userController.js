@@ -52,6 +52,11 @@ export const addNewCliente = catchAsyncErrors(async (req, res, next) => {
     addNewUser(req, res, next);
 });
 
+export const addNewAdminLab = catchAsyncErrors(async (req, res, next) => {
+    req.body.role = "AdminLab";
+    addNewUser(req, res, next);
+});
+
 // Login de usuario
 export const login = catchAsyncErrors(async (req, res, next) => {
     const { email, password } = req.body;

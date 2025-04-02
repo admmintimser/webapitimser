@@ -1,224 +1,118 @@
 import mongoose from "mongoose";
 import validator from "validator";
 
-const appointmentSchema = new mongoose.Schema({
+const appointmentSchema = new mongoose.Schema(
+  {
     privacyConsent: {
-        type: Boolean,
-        required: true,
-        default: false,
+      type: Boolean,
+      required: true,
+      default: false,
     },
     informedConsent: {
-        type: Boolean,
-        required: true,
-        default: false,
+      type: Boolean,
+      required: true,
+      default: false,
     },
-    fastingHours: {
-        type: String,
-    },
-    lastMealTime: {
-        type: String,
-    },
-    lastMealType: {
-        type: String,
-    },
+    fastingHours: String,
+    lastMealTime: String,
+    lastMealType: String,
     patientFirstName: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     patientLastName: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     birthDate: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true,
     },
-    areaType: {
-        type: String,
-    },
-    educationLevel: {
-        type: String,
-    },
-    sampleLocation: {
-        type: String,
-    },
-    sampleLocationValue: {
-        type: Number,
-    },
+    areaType: String,
+    educationLevel: String,
+    sampleLocation: String,
+    sampleLocationValue: Number,
     email: {
-        type: String,
-        required: true,
-        validate: [validator.isEmail, "Ingresa correctamente tu correo!"]
+      type: String,
+      required: true,
+      validate: [validator.isEmail, "¡Ingresa correctamente tu correo!"],
     },
     confirmEmail: {
-        type: String,
-        required: true,
-        validate: [validator.isEmail, "Ingresa correctamente tu correo!"]
+      type: String,
+      required: true,
+      validate: [validator.isEmail, "Ingresa correctamente tu correo!"],
     },
     mobilePhone: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     weight: {
-        type: Number,
-        min: 0
+      type: Number,
+      min: 0,
     },
     height: {
-        type: Number,
-        min: 0
+      type: Number,
+      min: 0,
     },
-    docF:{
-        type: String,
-    },
-    docName:{
-        type: String
-    },
-    vphVaccination: {
-        type: String,
-        
-    },
-    detectedConditions: {
-        type: String,
-       
-    },
-    tobaccoConsumption: {
-        type: String,
-        
-    },
-    cigarettesPerWeekBefore: {
-        type: String,
-    
-    },
-    cigarettesPerWeekCurrent: {
-        type: String,
-    },
-    papanicolaouTest: {
-        type: String,
-    },
-    papanicolaouYear: {
-        type: Number
-    },
-    papanicolaouResult: {
-        type: String,
-    },
-    colposcopy: {
-        type: String,
-    },
-    colposcopyYear: {
-        type: Number
-    },
-    colposcopyResult: {
-        type: String,
-       
-    },
-    hysterectomy: {
-        type: String,
-       
-    },
-    hysterectomyReason: {
-        type: String,
-        
-    },
-    lastMenstruationDate: {
-        type: String,
-       
-    },
-    firstMenstruationAge: {
-        type: Number,
-    },
-    sexualRelations: {
-        type: String,
-       
-    },
-    firstSexualRelationAge: {
-        type: Number,
-    },
-    sexualPartners: {
-        type: String,
-      
-    },
-    currentContraceptiveMethod: {
-        type: String,
-    },
-    oralContraceptiveUsageDuration: {
-        type: String,
-      
-    },
-    pregnancies: {
-        type: String,
-       
-    },
-    naturalBirths: {
-        type: Number
-    },
-    cesareans: {
-        type: Number
-    },
-    abortions: {
-        type: String,
-        
-    },
-    abortionCount: {
-        type: Number
-    },
-    FolioDevelab: {
-        type: Number
-    },
-    ClienteDevelab: {
-        type: Number
-    },
-    fechaToma: {
-        type: Date
-    },
+    docF: String,
+    docName: String,
+    vphVaccination: String,
+    detectedConditions: String,
+    tobaccoConsumption: String,
+    cigarettesPerWeekBefore: String,
+    cigarettesPerWeekCurrent: String,
+    papanicolaouTest: String,
+    papanicolaouYear: Number,
+    papanicolaouResult: String,
+    colposcopy: String,
+    colposcopyYear: Number,
+    colposcopyResult: String,
+    hysterectomy: String,
+    hysterectomyReason: String,
+    lastMenstruationDate: String,
+    firstMenstruationAge: Number,
+    sexualRelations: String,
+    firstSexualRelationAge: Number,
+    sexualPartners: String,
+    currentContraceptiveMethod: String,
+    oralContraceptiveUsageDuration: String,
+    pregnancies: String,
+    naturalBirths: Number,
+    cesareans: Number,
+    abortions: String,
+    abortionCount: Number,
+    FolioDevelab: Number,
+    ClienteDevelab: Number,
+    fechaToma: Date,
     tomaRecibida: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
     tomaProcesada: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
     tomaEnviada: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
     tomaEntregada: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
-    fecha_lavadowb: {
-        type: Date
-    },
-    realizoLavadowb: {
-        type: String
-    },
-    fecha_precipitadowb: {
-        type: Date
-    },
-    realizoPrecipitadowb: {
-        type: String
-    },
-    fechaProceso: {
-        type: Date
-    },
-    placaProceso: {
-        type: String
-    },
-    resultado4PL: {
-        type: String
-    },
-    interpretacionPreventix: {
-        type: String
-    },
-    observacionesWB: {
-        type: String
-    },
-    observacionesE: {
-        type: String
-    },
-    flebotomista: {
-        type: String
-    }
-}, { timestamps: true }); // Añadido timestamps
+    fecha_lavadowb: Date,
+    realizoLavadowb: String,
+    fecha_precipitadowb: Date,
+    realizoPrecipitadowb: String,
+    fechaProceso: Date,
+    placaProceso: String,
+    resultado4PL: String,
+    interpretacionPreventix: String,
+    observacionesWB: String,
+    observacionesE: String,
+    flebotomista: String,
+  },
+  { timestamps: true }
+);
 
 export const Appointment = mongoose.model("Appointment", appointmentSchema);
